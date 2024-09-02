@@ -6,7 +6,7 @@
 ## Setup
 
 ```
-git clone https://github.com/siddhanth78/Bashgen`
+git clone https://github.com/siddhanth78/Bashgen
 cd BashGen
 pip install -r requirements.txt
 ```
