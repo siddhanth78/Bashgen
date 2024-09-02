@@ -1,0 +1,2 @@
+/Users/lalgowdar/Desktop/Sid/bash-gen/rootdir/dir1
+/Users/lalgowdar/Desktop/Sid/bash-gen/rootdir/dir1/app.py
