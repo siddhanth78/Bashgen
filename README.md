@@ -3,6 +3,8 @@
 - Made for Mac OS.
 - Bash command generation assistant.
 
+- Uses "rootdir" as home directory.
+
 ## Setup
 
 ```
