@@ -1,2 +1,2 @@
-/Users/lalgowdar/Desktop/Sid/bash-gen/rootdir/dir1
-/Users/lalgowdar/Desktop/Sid/bash-gen/rootdir/dir1/app.py
+C:\Users\siddh\OneDrive\Desktop\Bashgen\rootdir\dir1
+C:\Users\siddh\OneDrive\Desktop\Bashgen\rootdir\dir1\app.py

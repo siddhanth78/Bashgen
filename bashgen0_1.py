@@ -2,7 +2,7 @@ import os
 import sys
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import TextLoader
-from langchain_community.llms import Ollama
+from langchain_groq import ChatGroq
 from langchain_core.output_parsers import StrOutputParser
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -11,9 +11,8 @@ import warnings
 import subprocess
 
 vectorstore = None
-
 os.environ['TOKENIZERS_PARALLELISM'] = 'true'
-
+os.environ['GROQ_API_KEY'] = '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'
 warnings.filterwarnings("ignore", message="cumsum_out_mps supported by MPS on MacOS 13+")
 
 def get_paths_from_filesystem(root_dir):
@@ -104,7 +103,12 @@ def setup_rag_chain(retriever, system_prompt, question_prompt_template):
         ("human", question_prompt_template),
     ])
 
-    llm = Ollama(model='myllama3_1')
+    llm = ChatGroq(model = "llama3-70b-8192",
+                    temperature = 0.2,
+                    max_tokens=4096,
+                    stream=False,
+                    timeout=None,
+                    max_retries=2)
 
     def format_docs(docs):
         return "\n\n".join(doc.page_content for doc in docs)
@@ -122,10 +126,14 @@ def setup_rag_chain(retriever, system_prompt, question_prompt_template):
 
 def run_bash_command(command):
     try:
-        # Start the process
-        process = subprocess.run(command, shell=True, capture_output=True, text=True, check=False)
+        powershell_command = ['powershell', '-NoProfile', '-NonInteractive', '-Command', command]
+        process = subprocess.run(
+            powershell_command,
+            capture_output=True,
+            text=True,
+            check=False
+        )
 
-        # Read output and error
         stdout, stderr = process.stdout, process.stderr
 
         return stdout, stderr
@@ -136,7 +144,6 @@ def run_bash_command(command):
 
 def main():
     global vectorstore
-    # Initial RAG setup
 
     print("Getting paths...")
 
@@ -153,7 +160,7 @@ def main():
     system_prompt, question_prompt_template = get_prompts()
     rag_chain, format_docs = setup_rag_chain(retriever, system_prompt, question_prompt_template)
 
-    os.system("clear")
+    os.system("cls")
     print("BashGen 0.1")
     print("'quit' to exit")
     print("'clr' to clear screen")
@@ -162,7 +169,7 @@ def main():
     updated = False
 
     while True:
-        user_question = input(">> ")
+        user_question = input(">>")
 
         if user_question.strip() == "":
             continue
@@ -172,7 +179,7 @@ def main():
             break
 
         if user_question.lower() == 'clr':
-            os.system("clear")
+            os.system("cls")
             print("BashGen 0.1")
             print("'quit' to exit")
             print("'clr' to clear screen")
@@ -187,7 +194,8 @@ def main():
             result = rag_chain.invoke({"question": user_question, "context": context})
 
             bash_command = result.strip()
-
+            
+            
             if bash_command:
                 print(f"{bash_command}")
                 output, error = run_bash_command(bash_command)

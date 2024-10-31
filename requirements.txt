@@ -1,5 +1,6 @@
 langchain-chroma
-langchain-community
+langchain-groq
 langchain-core
 langchain-huggingface
 langchain-text-splitters
+langchain-community
