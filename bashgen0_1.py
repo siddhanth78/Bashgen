@@ -12,7 +12,7 @@ import subprocess
 
 vectorstore = None
 os.environ['TOKENIZERS_PARALLELISM'] = 'true'
-os.environ['GROQ_API_KEY'] = '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'
+os.environ['GROQ_API_KEY'] = input("GROQ_API_KEY: ")
 warnings.filterwarnings("ignore", message="cumsum_out_mps supported by MPS on MacOS 13+")
 
 def get_paths_from_filesystem(root_dir):
