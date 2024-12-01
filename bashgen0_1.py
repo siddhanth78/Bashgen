@@ -198,7 +198,7 @@ def main():
             
             if bash_command:
                 print(f"{bash_command}")
-                output, error = run_bash_command(bash_command)
+                #output, error = run_bash_command(bash_command)
                 if output:
                     print("\nOutput:")
                     print(output)
@@ -224,9 +224,6 @@ def main():
 
         except Exception as e:
             print(f"An error occurred while processing your question: {e}")
-            print("Please ensure that Ollama is installed and running.")
-            print("You can start Ollama by running the 'ollama' command in a terminal.")
-            print("If the problem persists, check your firewall settings or try specifying the Ollama URL explicitly in the code.")
             input("\nPress Enter to continue...")
 
 if __name__ == "__main__":
